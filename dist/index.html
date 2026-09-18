@@ -70,6 +70,31 @@
       .reveal { opacity: 1; transform: none; transition: none; }
       * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
+    @media (max-width: 767px) {
+      #home {
+        display: block;
+        min-height: 0;
+        padding-top: 46.9vw;
+      }
+      #home .hero-image {
+        bottom: auto;
+        height: auto;
+        aspect-ratio: 1862 / 873;
+        object-fit: contain;
+        object-position: center;
+        background: #06130d;
+        filter: saturate(.82) contrast(1.02) brightness(.8);
+      }
+      #home .hero-vignette {
+        bottom: auto;
+        height: 46.9vw;
+        background: linear-gradient(0deg, #06130d 0%, transparent 42%);
+      }
+      #home .hero-content {
+        padding-top: 3rem;
+        padding-bottom: 4rem;
+      }
+    }
   </style>
 </head>
 <body class="font-sans text-zinc-200 antialiased selection:bg-emerald/30 selection:text-white">
@@ -92,20 +117,17 @@
         <a class="transition hover:text-emerald" href="#contact">Contact</a>
       </div>
       <a href="#contact" class="hidden rounded-full border border-emerald/40 bg-emerald/10 px-5 py-2.5 text-sm font-semibold text-emerald transition hover:bg-emerald hover:text-ink md:inline-flex">Free Tech Audit</a>
-      <button id="menu-button" class="rounded-lg border border-white/10 p-2.5 text-white md:hidden" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
-        <i data-lucide="menu" class="size-5"></i>
-      </button>
     </nav>
-    <div id="mobile-menu" class="hidden border-t border-white/10 bg-ink px-5 py-5 md:hidden">
-      <div class="flex flex-col gap-4 text-sm">
-        <a href="#services">Services</a><a href="#experience">Credentials</a><a href="#portfolio">Case Studies</a><a href="#contact">Contact</a>
-        <a href="#contact" class="mt-2 rounded-full bg-emerald px-5 py-3 text-center font-semibold text-ink">Free Tech Audit</a>
-      </div>
+    <div class="grid grid-cols-4 border-t border-white/10 bg-ink px-2 text-center text-[.68rem] font-medium text-zinc-300 md:hidden">
+      <a class="px-1 py-3 transition hover:text-emerald" href="#services">Services</a>
+      <a class="px-1 py-3 transition hover:text-emerald" href="#experience">Credentials</a>
+      <a class="px-1 py-3 transition hover:text-emerald" href="#portfolio">Case Studies</a>
+      <a class="px-1 py-3 transition hover:text-emerald" href="#contact">Contact</a>
     </div>
   </header>
 
   <main>
-    <section id="home" class="relative mt-20 flex min-h-[860px] items-end overflow-hidden lg:min-h-[900px]">
+    <section id="home" class="relative mt-[7.75rem] flex min-h-[860px] items-end overflow-hidden md:mt-20 lg:min-h-[900px]">
       <img src="assets/sibauste-systems-hero.png" alt="Renaissance-style Adam reaching toward a humanoid computer surrounded by binary code" class="hero-image absolute inset-0 h-full w-full object-cover object-[58%_35%]" fetchpriority="high">
       <div class="hero-vignette absolute inset-0"></div>
       <div class="absolute inset-x-0 bottom-20 mx-auto max-w-7xl px-5 lg:bottom-24 lg:px-8">
@@ -114,7 +136,7 @@
           <p class="text-sm leading-6 text-zinc-300">Shopify infrastructure, network security, analytics, and automation—designed as one reliable system.</p>
         </div>
       </div>
-      <div class="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-44 lg:px-8 lg:pb-24">
+      <div class="hero-content relative mx-auto w-full max-w-7xl px-5 pb-20 pt-44 lg:px-8 lg:pb-24">
         <div class="max-w-3xl">
           <p class="eyebrow mb-5 text-xs font-bold uppercase text-emerald">E-commerce IT & infrastructure optimization</p>
           <h1 class="font-display text-5xl leading-[1.03] text-white sm:text-6xl lg:text-[5rem]">Secure systems.<br><span class="text-emerald">Stronger commerce.</span></h1>
@@ -238,15 +260,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
-      const button = document.getElementById('menu-button');
-      const menu = document.getElementById('mobile-menu');
-      const closeMenu = () => { menu.classList.add('hidden'); button.setAttribute('aria-expanded', 'false'); };
-      button.addEventListener('click', () => {
-        const willOpen = menu.classList.contains('hidden');
-        menu.classList.toggle('hidden');
-        button.setAttribute('aria-expanded', String(willOpen));
-      });
-      menu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
       document.getElementById('year').textContent = new Date().getFullYear();
 
       const observer = new IntersectionObserver(entries => {
