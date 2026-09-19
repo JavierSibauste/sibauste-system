@@ -50,6 +50,31 @@
       background-size: 56px 56px;
       mask-image: linear-gradient(to bottom, black, transparent 88%);
     }
+    .cable-field {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: .42;
+      mix-blend-mode: screen;
+      overflow: hidden;
+    }
+    .cable-glow { fill: none; stroke: rgba(33, 213, 148, .16); stroke-width: 12; filter: url(#cable-blur); }
+    .cable-line {
+      fill: none;
+      stroke-linecap: round;
+      stroke-width: 1.4;
+      stroke-dasharray: 22 34 6 30;
+      animation: cable-flow 11s linear infinite;
+    }
+    .cable-line.cyan { stroke: rgba(83, 215, 255, .55); }
+    .cable-line.green { stroke: rgba(70, 213, 122, .72); animation-duration: 8s; }
+    .cable-line.gold { stroke: rgba(214, 185, 119, .35); animation-duration: 14s; animation-direction: reverse; }
+    .cable-pulse { fill: #b9ffe0; filter: url(#node-glow); animation: pulse-node 3.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes cable-flow { to { stroke-dashoffset: -184; } }
+    @keyframes pulse-node { 0%, 100% { opacity: .2; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.35); } }
     .hero-image { filter: saturate(.78) contrast(1.02) brightness(.72); }
     .hero-vignette { background: linear-gradient(90deg, rgba(4, 12, 8, .92) 0%, rgba(4, 12, 8, .58) 42%, rgba(4, 12, 8, .05) 68%), linear-gradient(0deg, #06130d 0%, transparent 36%); }
     .eyebrow { letter-spacing: .2em; }
@@ -69,6 +94,7 @@
       html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
       * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .cable-line { stroke-dasharray: none; }
     }
     @media (max-width: 767px) {
       #home {
@@ -100,6 +126,27 @@
 <body class="font-sans text-zinc-200 antialiased selection:bg-emerald/30 selection:text-white">
   <div class="fixed inset-0 -z-20 grid-lines" aria-hidden="true"></div>
   <div class="fixed inset-0 -z-10 noise opacity-30" aria-hidden="true"></div>
+  <svg class="cable-field" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <filter id="cable-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"></feGaussianBlur></filter>
+      <filter id="node-glow" x="-400%" y="-400%" width="800%" height="800%"><feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+      <path id="cable-a" d="M-80 145 C220 20 420 48 612 164 S1030 352 1510 78"></path>
+      <path id="cable-b" d="M-50 815 C220 665 360 690 585 790 S1080 850 1490 610"></path>
+      <path id="cable-c" d="M40 -80 C180 130 135 300 52 470 S90 750 310 980"></path>
+      <path id="cable-d" d="M1395 -60 C1265 150 1310 300 1400 448 S1360 725 1170 970"></path>
+      <path id="cable-e" d="M-90 595 C245 505 410 550 655 450 S1080 260 1515 390"></path>
+    </defs>
+    <g>
+      <use href="#cable-a" class="cable-glow"></use><use href="#cable-a" class="cable-line cyan"></use>
+      <use href="#cable-b" class="cable-glow"></use><use href="#cable-b" class="cable-line green"></use>
+      <use href="#cable-c" class="cable-glow"></use><use href="#cable-c" class="cable-line gold"></use>
+      <use href="#cable-d" class="cable-glow"></use><use href="#cable-d" class="cable-line cyan"></use>
+      <use href="#cable-e" class="cable-glow"></use><use href="#cable-e" class="cable-line green"></use>
+      <circle class="cable-pulse" cx="52" cy="470" r="3"></circle>
+      <circle class="cable-pulse" cx="1398" cy="448" r="3" style="animation-delay:-1.7s"></circle>
+      <circle class="cable-pulse" cx="655" cy="450" r="3" style="animation-delay:-2.4s"></circle>
+    </g>
+  </svg>
 
   <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/80 backdrop-blur-xl">
     <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8" aria-label="Main navigation">
@@ -167,7 +214,7 @@
       <div class="mt-14 grid gap-5 lg:grid-cols-3">
         <article class="card-line reveal relative overflow-hidden rounded-3xl border border-white/10 bg-panel/80 p-7 shadow-glow transition duration-300 hover:-translate-y-1 hover:border-emerald/30">
           <span class="mb-8 grid size-12 place-items-center rounded-2xl bg-emerald/10 text-emerald"><i data-lucide="shield-check" class="size-6"></i></span>
-          <p class="text-xs font-bold uppercase tracking-[.18em] text-gold">01 / Protect</p><h3 class="mt-3 font-display text-2xl text-white">Infrastructure & Security</h3>
+          <h3 class="font-display text-2xl text-white">Infrastructure & Security</h3>
           <ul class="mt-6 space-y-5 text-zinc-400">
             <li><strong class="block text-zinc-200">DNS & Cloudflare Management</strong><span class="mt-1 block text-sm leading-6">SSL configuration, DNS health, and mitigation of malicious traffic.</span></li>
             <li><strong class="block text-zinc-200">Omnichannel Automation</strong><span class="mt-1 block text-sm leading-6">Reliable inventory and data synchronization across Shopify, Meta, TikTok, eBay, Etsy, and Pinterest.</span></li>
@@ -175,7 +222,7 @@
         </article>
         <article class="card-line reveal relative overflow-hidden rounded-3xl border border-emerald/25 bg-gradient-to-b from-emerald/10 to-panel/80 p-7 shadow-glow transition duration-300 hover:-translate-y-1 hover:border-emerald/50">
           <span class="mb-8 grid size-12 place-items-center rounded-2xl bg-emerald text-ink"><i data-lucide="shopping-bag" class="size-6"></i></span>
-          <p class="text-xs font-bold uppercase tracking-[.18em] text-gold">02 / Build</p><h3 class="mt-3 font-display text-2xl text-white">Shopify Development</h3>
+          <h3 class="font-display text-2xl text-white">Shopify Development</h3>
           <ul class="mt-6 space-y-5 text-zinc-400">
             <li><strong class="block text-zinc-200">Store Optimization & Rebuilding</strong><span class="mt-1 block text-sm leading-6">Clean code improvements focused on speed, engagement, and conversion performance.</span></li>
             <li><strong class="block text-zinc-200">Technical Consulting</strong><span class="mt-1 block text-sm leading-6">Practical blueprints for launches, migrations, and app-stack architecture.</span></li>
@@ -183,7 +230,7 @@
         </article>
         <article class="card-line reveal relative overflow-hidden rounded-3xl border border-white/10 bg-panel/80 p-7 shadow-glow transition duration-300 hover:-translate-y-1 hover:border-emerald/30">
           <span class="mb-8 grid size-12 place-items-center rounded-2xl bg-emerald/10 text-emerald"><i data-lucide="database-zap" class="size-6"></i></span>
-          <p class="text-xs font-bold uppercase tracking-[.18em] text-gold">03 / Measure</p><h3 class="mt-3 font-display text-2xl text-white">Data & API Engineering</h3>
+          <h3 class="font-display text-2xl text-white">Data & API Engineering</h3>
           <ul class="mt-6 space-y-5 text-zinc-400">
             <li><strong class="block text-zinc-200">Advanced Analytics Integration</strong><span class="mt-1 block text-sm leading-6">Shopify API and Google platform connections built to capture trustworthy traffic data.</span></li>
             <li><strong class="block text-zinc-200">Google Stack Ownership</strong><span class="mt-1 block text-sm leading-6">GA4, Search Console, Merchant Center, and Ads tracking managed as one measurement system.</span></li>
@@ -212,15 +259,15 @@
       <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p class="eyebrow text-xs font-bold uppercase text-emerald">Selected systems work</p><h2 class="mt-4 font-display text-4xl text-white sm:text-5xl">Three bottlenecks. Three engineered solutions.</h2></div><p class="max-w-md text-zinc-400">Representative case-study summaries from live e-commerce infrastructure work.</p></div>
       <div class="mt-14 space-y-5">
         <article class="reveal group grid overflow-hidden rounded-3xl border border-white/10 bg-panel/70 lg:grid-cols-[.36fr_.64fr]">
-          <div class="flex min-h-52 flex-col justify-between border-b border-white/10 bg-gradient-to-br from-emerald/20 to-transparent p-7 lg:border-b-0 lg:border-r"><span class="font-display text-6xl text-emerald/25">01</span><div><i data-lucide="gauge" class="mb-4 size-7 text-emerald"></i><p class="text-sm font-semibold text-emerald">Performance architecture</p></div></div>
+          <div class="flex min-h-52 items-center border-b border-white/10 bg-gradient-to-br from-emerald/20 to-transparent p-7 lg:border-b-0 lg:border-r"><div><i data-lucide="gauge" class="mb-4 size-7 text-emerald"></i><p class="text-sm font-semibold text-emerald">Performance architecture</p></div></div>
           <div class="p-7 sm:p-10"><h3 class="font-display text-3xl text-white">The Store Rebuild</h3><p class="mt-4 max-w-2xl text-lg leading-8 text-zinc-400">Optimized a live Shopify ecosystem and upgraded its code architecture to improve load times, maintainability, and the path to conversion.</p><div class="mt-8 flex flex-wrap gap-2 text-xs uppercase tracking-[.14em] text-zinc-300"><span class="rounded-full border border-white/10 px-3 py-2">Shopify</span><span class="rounded-full border border-white/10 px-3 py-2">Performance</span><span class="rounded-full border border-white/10 px-3 py-2">Code architecture</span></div></div>
         </article>
         <article class="reveal group grid overflow-hidden rounded-3xl border border-white/10 bg-panel/70 lg:grid-cols-[.36fr_.64fr]">
-          <div class="flex min-h-52 flex-col justify-between border-b border-white/10 bg-gradient-to-br from-blue-500/15 to-transparent p-7 lg:border-b-0 lg:border-r"><span class="font-display text-6xl text-blue-300/20">02</span><div><i data-lucide="workflow" class="mb-4 size-7 text-blue-300"></i><p class="text-sm font-semibold text-blue-300">Measurement integrity</p></div></div>
+          <div class="flex min-h-52 items-center border-b border-white/10 bg-gradient-to-br from-blue-500/15 to-transparent p-7 lg:border-b-0 lg:border-r"><div><i data-lucide="workflow" class="mb-4 size-7 text-blue-300"></i><p class="text-sm font-semibold text-blue-300">Measurement integrity</p></div></div>
           <div class="p-7 sm:p-10"><h3 class="font-display text-3xl text-white">The Data Pipeline</h3><p class="mt-4 max-w-2xl text-lg leading-8 text-zinc-400">Engineered a server-to-server tracking connection to reduce signal loss between customer interactions and Google Analytics reporting.</p><div class="mt-8 flex flex-wrap gap-2 text-xs uppercase tracking-[.14em] text-zinc-300"><span class="rounded-full border border-white/10 px-3 py-2">APIs</span><span class="rounded-full border border-white/10 px-3 py-2">GA4</span><span class="rounded-full border border-white/10 px-3 py-2">Server-side tracking</span></div></div>
         </article>
         <article class="reveal group grid overflow-hidden rounded-3xl border border-white/10 bg-panel/70 lg:grid-cols-[.36fr_.64fr]">
-          <div class="flex min-h-52 flex-col justify-between border-b border-white/10 bg-gradient-to-br from-gold/15 to-transparent p-7 lg:border-b-0 lg:border-r"><span class="font-display text-6xl text-gold/20">03</span><div><i data-lucide="refresh-cw" class="mb-4 size-7 text-gold"></i><p class="text-sm font-semibold text-gold">Operational automation</p></div></div>
+          <div class="flex min-h-52 items-center border-b border-white/10 bg-gradient-to-br from-gold/15 to-transparent p-7 lg:border-b-0 lg:border-r"><div><i data-lucide="refresh-cw" class="mb-4 size-7 text-gold"></i><p class="text-sm font-semibold text-gold">Operational automation</p></div></div>
           <div class="p-7 sm:p-10"><h3 class="font-display text-3xl text-white">The Omnichannel Sync</h3><p class="mt-4 max-w-2xl text-lg leading-8 text-zinc-400">Automated catalog delivery to TikTok, Meta, and third-party marketplaces, removing repetitive manual entry and reducing inconsistency.</p><div class="mt-8 flex flex-wrap gap-2 text-xs uppercase tracking-[.14em] text-zinc-300"><span class="rounded-full border border-white/10 px-3 py-2">Automation</span><span class="rounded-full border border-white/10 px-3 py-2">Catalog feeds</span><span class="rounded-full border border-white/10 px-3 py-2">Omnichannel</span></div></div>
         </article>
       </div>
