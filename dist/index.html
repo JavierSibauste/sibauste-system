@@ -72,7 +72,8 @@
     .cable-line.cyan { stroke: rgba(83, 215, 255, .55); }
     .cable-line.green { stroke: rgba(70, 213, 122, .72); animation-duration: 8s; }
     .cable-line.gold { stroke: rgba(214, 185, 119, .35); animation-duration: 14s; animation-direction: reverse; }
-    .cable-runner { fill: #67f5a3; filter: url(#node-glow); }
+    .cable-runner-halo { fill: rgba(67, 255, 148, .34); rx: 8px; ry: 35px; filter: url(#node-glow); }
+    .cable-runner-core { fill: #dffff0; rx: 3px; ry: 14px; filter: url(#node-glow); }
     @keyframes cable-flow { to { stroke-dashoffset: -184; } }
     @keyframes pulse-node { 0%, 100% { opacity: .2; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.35); } }
     .hero-image { filter: saturate(.9) contrast(1.01) brightness(.96); }
@@ -95,7 +96,7 @@
       .reveal { opacity: 1; transform: none; transition: none; }
       * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
       .cable-line { stroke-dasharray: none; }
-      .cable-runner { display: none; }
+      .cable-runner { opacity: 1; }
     }
     @media (max-width: 767px) {
       #home {
@@ -110,8 +111,12 @@
         object-fit: contain;
         object-position: center;
         background: #06130d;
-        filter: saturate(.9) contrast(1.01) brightness(1);
+        image-rendering: auto;
+        filter: saturate(.96) contrast(1.04) brightness(1.02);
       }
+      .cable-field { opacity: .56; }
+      .cable-runner-halo { rx: 28px; ry: 50px; }
+      .cable-runner-core { rx: 12px; ry: 22px; }
       #home .hero-vignette {
         bottom: auto;
         height: 46.9vw;
@@ -143,11 +148,11 @@
       <use href="#cable-c" class="cable-glow"></use><use href="#cable-c" class="cable-line gold"></use>
       <use href="#cable-d" class="cable-glow"></use><use href="#cable-d" class="cable-line cyan"></use>
       <use href="#cable-e" class="cable-glow"></use><use href="#cable-e" class="cable-line green"></use>
-      <circle class="cable-runner" r="4"><animateMotion dur="14s" repeatCount="indefinite" begin="-3s"><mpath href="#cable-a"></mpath></animateMotion></circle>
-      <circle class="cable-runner" r="4"><animateMotion dur="16s" repeatCount="indefinite" begin="-8s"><mpath href="#cable-b"></mpath></animateMotion></circle>
-      <circle class="cable-runner" r="4"><animateMotion dur="22s" repeatCount="indefinite" begin="-12s"><mpath href="#cable-c"></mpath></animateMotion></circle>
-      <circle class="cable-runner" r="4"><animateMotion dur="20s" repeatCount="indefinite" begin="-5s"><mpath href="#cable-d"></mpath></animateMotion></circle>
-      <circle class="cable-runner" r="4"><animateMotion dur="15s" repeatCount="indefinite" begin="-10s"><mpath href="#cable-e"></mpath></animateMotion></circle>
+      <ellipse class="cable-runner cable-runner-halo"><animateMotion dur="14s" repeatCount="indefinite" begin="-3s"><mpath href="#cable-a"></mpath></animateMotion></ellipse><ellipse class="cable-runner cable-runner-core"><animateMotion dur="14s" repeatCount="indefinite" begin="-3s"><mpath href="#cable-a"></mpath></animateMotion></ellipse>
+      <ellipse class="cable-runner cable-runner-halo"><animateMotion dur="16s" repeatCount="indefinite" begin="-8s"><mpath href="#cable-b"></mpath></animateMotion></ellipse><ellipse class="cable-runner cable-runner-core"><animateMotion dur="16s" repeatCount="indefinite" begin="-8s"><mpath href="#cable-b"></mpath></animateMotion></ellipse>
+      <ellipse class="cable-runner cable-runner-halo"><animateMotion dur="22s" repeatCount="indefinite" begin="-12s"><mpath href="#cable-c"></mpath></animateMotion></ellipse><ellipse class="cable-runner cable-runner-core"><animateMotion dur="22s" repeatCount="indefinite" begin="-12s"><mpath href="#cable-c"></mpath></animateMotion></ellipse>
+      <ellipse class="cable-runner cable-runner-halo"><animateMotion dur="20s" repeatCount="indefinite" begin="-5s"><mpath href="#cable-d"></mpath></animateMotion></ellipse><ellipse class="cable-runner cable-runner-core"><animateMotion dur="20s" repeatCount="indefinite" begin="-5s"><mpath href="#cable-d"></mpath></animateMotion></ellipse>
+      <ellipse class="cable-runner cable-runner-halo"><animateMotion dur="15s" repeatCount="indefinite" begin="-10s"><mpath href="#cable-e"></mpath></animateMotion></ellipse><ellipse class="cable-runner cable-runner-core"><animateMotion dur="15s" repeatCount="indefinite" begin="-10s"><mpath href="#cable-e"></mpath></animateMotion></ellipse>
     </g>
   </svg>
 
@@ -311,6 +316,12 @@
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
+
+      const cableField = document.querySelector('.cable-field');
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && cableField?.pauseAnimations) {
+        cableField.setCurrentTime(4);
+        cableField.pauseAnimations();
+      }
 
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
