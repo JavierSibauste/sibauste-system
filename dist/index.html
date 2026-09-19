@@ -126,15 +126,15 @@
 <body class="font-sans text-zinc-200 antialiased selection:bg-emerald/30 selection:text-white">
   <div class="fixed inset-0 -z-20 grid-lines" aria-hidden="true"></div>
   <div class="fixed inset-0 -z-10 noise opacity-30" aria-hidden="true"></div>
-  <svg class="cable-field" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <svg class="cable-field" viewBox="0 0 1440 5200" preserveAspectRatio="none" aria-hidden="true">
     <defs>
       <filter id="cable-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"></feGaussianBlur></filter>
       <filter id="node-glow" x="-400%" y="-400%" width="800%" height="800%"><feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
-      <path id="cable-a" d="M-80 145 C220 20 420 48 612 164 S1030 352 1510 78"></path>
-      <path id="cable-b" d="M-50 815 C220 665 360 690 585 790 S1080 850 1490 610"></path>
-      <path id="cable-c" d="M40 -80 C180 130 135 300 52 470 S90 750 310 980"></path>
-      <path id="cable-d" d="M1395 -60 C1265 150 1310 300 1400 448 S1360 725 1170 970"></path>
-      <path id="cable-e" d="M-90 595 C245 505 410 550 655 450 S1080 260 1515 390"></path>
+      <path id="cable-a" d="M-80 180 C260 35 510 120 760 430 S1160 850 1510 620"></path>
+      <path id="cable-b" d="M1490 900 C1120 660 920 980 690 1320 S240 1820 -60 1540"></path>
+      <path id="cable-c" d="M55 -100 C210 520 40 920 120 1510 S360 2250 80 2870 S40 4050 300 5300"></path>
+      <path id="cable-d" d="M1380 -100 C1210 560 1430 1080 1320 1720 S1050 2510 1370 3190 S1440 4310 1160 5300"></path>
+      <path id="cable-e" d="M-90 2460 C250 2240 500 2360 720 2710 S1110 3270 1515 2980"></path>
     </defs>
     <g>
       <use href="#cable-a" class="cable-glow"></use><use href="#cable-a" class="cable-line cyan"></use>
@@ -142,9 +142,9 @@
       <use href="#cable-c" class="cable-glow"></use><use href="#cable-c" class="cable-line gold"></use>
       <use href="#cable-d" class="cable-glow"></use><use href="#cable-d" class="cable-line cyan"></use>
       <use href="#cable-e" class="cable-glow"></use><use href="#cable-e" class="cable-line green"></use>
-      <circle class="cable-pulse" cx="52" cy="470" r="3"></circle>
-      <circle class="cable-pulse" cx="1398" cy="448" r="3" style="animation-delay:-1.7s"></circle>
-      <circle class="cable-pulse" cx="655" cy="450" r="3" style="animation-delay:-2.4s"></circle>
+      <circle class="cable-pulse" cx="120" cy="1510" r="3"></circle>
+      <circle class="cable-pulse" cx="1320" cy="1720" r="3" style="animation-delay:-1.7s"></circle>
+      <circle class="cable-pulse" cx="720" cy="2710" r="3" style="animation-delay:-2.4s"></circle>
     </g>
   </svg>
 
