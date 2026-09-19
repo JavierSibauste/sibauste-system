@@ -317,11 +317,6 @@
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      const cableField = document.querySelector('.cable-field');
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && cableField?.pauseAnimations) {
-        cableField.setCurrentTime(4);
-        cableField.pauseAnimations();
-      }
 
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
