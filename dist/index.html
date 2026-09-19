@@ -72,11 +72,11 @@
     .cable-line.cyan { stroke: rgba(83, 215, 255, .55); }
     .cable-line.green { stroke: rgba(70, 213, 122, .72); animation-duration: 8s; }
     .cable-line.gold { stroke: rgba(214, 185, 119, .35); animation-duration: 14s; animation-direction: reverse; }
-    .cable-pulse { fill: #b9ffe0; filter: url(#node-glow); animation: pulse-node 3.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .cable-runner { fill: #67f5a3; filter: url(#node-glow); }
     @keyframes cable-flow { to { stroke-dashoffset: -184; } }
     @keyframes pulse-node { 0%, 100% { opacity: .2; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.35); } }
-    .hero-image { filter: saturate(.78) contrast(1.02) brightness(.72); }
-    .hero-vignette { background: linear-gradient(90deg, rgba(4, 12, 8, .92) 0%, rgba(4, 12, 8, .58) 42%, rgba(4, 12, 8, .05) 68%), linear-gradient(0deg, #06130d 0%, transparent 36%); }
+    .hero-image { filter: saturate(.9) contrast(1.01) brightness(.96); }
+    .hero-vignette { background: radial-gradient(circle at 18% 52%, rgba(242, 228, 197, .12), transparent 30%), linear-gradient(90deg, rgba(4, 12, 8, .56) 0%, rgba(4, 12, 8, .38) 42%, rgba(4, 12, 8, .04) 68%), linear-gradient(0deg, rgba(6, 19, 13, .9) 0%, transparent 36%); }
     .eyebrow { letter-spacing: .2em; }
     .card-line::before {
       content: '';
@@ -95,6 +95,7 @@
       .reveal { opacity: 1; transform: none; transition: none; }
       * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
       .cable-line { stroke-dasharray: none; }
+      .cable-runner { display: none; }
     }
     @media (max-width: 767px) {
       #home {
@@ -109,12 +110,12 @@
         object-fit: contain;
         object-position: center;
         background: #06130d;
-        filter: saturate(.82) contrast(1.02) brightness(.8);
+        filter: saturate(.9) contrast(1.01) brightness(1);
       }
       #home .hero-vignette {
         bottom: auto;
         height: 46.9vw;
-        background: linear-gradient(0deg, #06130d 0%, transparent 42%);
+        background: radial-gradient(circle at 20% 58%, rgba(242, 228, 197, .12), transparent 34%), linear-gradient(0deg, rgba(6, 19, 13, .58) 0%, transparent 42%);
       }
       #home .hero-content {
         padding-top: 3rem;
@@ -142,9 +143,11 @@
       <use href="#cable-c" class="cable-glow"></use><use href="#cable-c" class="cable-line gold"></use>
       <use href="#cable-d" class="cable-glow"></use><use href="#cable-d" class="cable-line cyan"></use>
       <use href="#cable-e" class="cable-glow"></use><use href="#cable-e" class="cable-line green"></use>
-      <circle class="cable-pulse" cx="120" cy="1510" r="3"></circle>
-      <circle class="cable-pulse" cx="1320" cy="1720" r="3" style="animation-delay:-1.7s"></circle>
-      <circle class="cable-pulse" cx="720" cy="2710" r="3" style="animation-delay:-2.4s"></circle>
+      <circle class="cable-runner" r="4"><animateMotion dur="14s" repeatCount="indefinite" begin="-3s"><mpath href="#cable-a"></mpath></animateMotion></circle>
+      <circle class="cable-runner" r="4"><animateMotion dur="16s" repeatCount="indefinite" begin="-8s"><mpath href="#cable-b"></mpath></animateMotion></circle>
+      <circle class="cable-runner" r="4"><animateMotion dur="22s" repeatCount="indefinite" begin="-12s"><mpath href="#cable-c"></mpath></animateMotion></circle>
+      <circle class="cable-runner" r="4"><animateMotion dur="20s" repeatCount="indefinite" begin="-5s"><mpath href="#cable-d"></mpath></animateMotion></circle>
+      <circle class="cable-runner" r="4"><animateMotion dur="15s" repeatCount="indefinite" begin="-10s"><mpath href="#cable-e"></mpath></animateMotion></circle>
     </g>
   </svg>
 
