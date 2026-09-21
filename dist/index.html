@@ -287,7 +287,7 @@
           <p class="relative mt-6 text-lg leading-8 text-zinc-400">Tell me what is slow, unreliable, disconnected, or difficult to measure. I’ll help identify the technical path forward.</p>
           <div class="relative mt-10 space-y-4 text-sm text-zinc-300"><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>Focused technical inspection</p><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>Plain-language priorities</p><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>AI-assisted analysis, human-reviewed</p></div>
         </div>
-        <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="reveal p-8 sm:p-12">
+        <form id="contact-form" action="https://formspree.io/f/xgavkolp" method="POST" class="reveal p-8 sm:p-12">
           <div class="grid gap-5 sm:grid-cols-2">
             <label class="block"><span class="mb-2 block text-sm font-medium text-zinc-300">Name</span><input required name="name" type="text" autocomplete="name" class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="Your name"></label>
             <label class="block"><span class="mb-2 block text-sm font-medium text-zinc-300">Email</span><input required name="email" type="email" autocomplete="email" class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="you@company.com"></label>
@@ -296,7 +296,7 @@
           <label class="mt-5 block"><span class="mb-2 block text-sm font-medium text-zinc-300">What technical bottleneck can I solve for you?</span><textarea required name="message" rows="5" class="w-full resize-y rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="Store speed, tracking gaps, SEO analysis, DNS, integrations, catalog synchronization..."></textarea></label>
           <input type="hidden" name="_subject" value="New Sibauste Systems inspection request">
           <button type="submit" class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald px-6 py-4 font-bold text-ink transition hover:bg-green-300">Request a Store Inspection <i data-lucide="send" class="size-4"></i></button>
-          <p id="form-note" class="mt-4 text-center text-sm text-zinc-500" aria-live="polite">Draft form · connect your personal Formspree ID before launch.</p>
+          <p id="form-note" class="mt-4 text-center text-sm text-zinc-500" aria-live="polite">Your inspection request will be sent securely to Javier Sibauste.</p>
         </form>
       </div>
     </section>
@@ -320,14 +320,7 @@
       }, { threshold: .12 });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      const form = document.getElementById('contact-form');
-      form.addEventListener('submit', event => {
-        if (form.action.includes('YOUR_FORM_ID')) {
-          event.preventDefault();
-          document.getElementById('form-note').textContent = 'Add your Formspree form ID to activate submissions.';
-          document.getElementById('form-note').className = 'mt-4 text-center text-sm text-gold';
-        }
-      });
+
     });
   </script>
 </body>
