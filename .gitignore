@@ -4,3 +4,5 @@ dist/blog/index.html
 dist/blog/articles/
 dist/blog/feed.xml
 dist/sitemap.xml
+
+protected-editor/
