@@ -1,0 +1,13 @@
+{
+  "name": "sibauste-systems-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-blog.mjs",
+    "test": "node --test tests/blog.test.mjs"
+  },
+  "dependencies": {
+    "marked": "17.0.1",
+    "sanitize-html": "2.17.0"
+  }
+}

@@ -1,0 +1,38 @@
+backend:
+  name: turbo-github
+  turbo_site_id: 43bfba37-2f94-4fae-8352-d89e60fc2562
+  branch: main
+
+site_url: https://sibaustesystem.com
+display_url: https://sibaustesystem.com/blog/
+logo_url: https://sibaustesystem.com/assets/sibauste-systems-logo-transparent-v2.png
+publish_mode: editorial_workflow
+media_folder: dist/uploads/blog
+public_folder: /uploads/blog
+
+collections:
+  - name: posts
+    label: Blog posts
+    label_singular: Blog post
+    folder: content/posts
+    create: true
+    extension: json
+    format: json
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}}"
+    preview_path: "blog/articles/{{slug}}/"
+    fields:
+      - {label: Title, name: title, widget: string}
+      - {label: Publication date, name: date, widget: datetime}
+      - label: Topic
+        name: topic
+        widget: select
+        options: [IT, Technology companies, E-commerce, Analytics, Integrations, Personal notes]
+      - label: Search description
+        name: description
+        widget: text
+        hint: A short, clear summary for readers and search engines
+      - {label: Cover image, name: cover, widget: image, required: false}
+      - {label: Cover image description, name: cover_alt, widget: string, required: false}
+      - {label: Article, name: body, widget: markdown}
