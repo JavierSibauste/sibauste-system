@@ -10,7 +10,6 @@ CMS.registerPreviewTemplate('posts', function ArticlePreview({entry, widgetFor})
   return h('main', {}, h('article', {className:'article'},
     h('div', {className:'meta'}, ['Javier Sibauste', data.get('topic'), formattedDate].filter(Boolean).join(' · ')),
     h('h1', {}, data.get('title')),
-    h('p', {className:'description'}, data.get('description')),
     h('div', {className:'prose'}, widgetFor('body'))
   ));
 });

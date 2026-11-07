@@ -26,6 +26,9 @@ test('published posts generate crawlable pages and future posts stay out of the 
     const html=await readFile(join(output,'blog/articles/note/index.html'),'utf8');
     assert.match(html,/<h2>Finding<\/h2>/);assert.match(html,/<strong>content<\/strong>/);assert.match(html,/BlogPosting/);
     assert.doesNotMatch(html, /class="cover"/);
+    assert.doesNotMatch(html.split('<body>')[1], /A useful summary/);
+    assert.match(html, /<meta name="description" content="A useful summary">/);
+    assert.match(await readFile(join(output,'blog/index.html'),'utf8'), /<p>A useful summary<\/p>/);
     assert.match(await readFile(join(output,'blog/index.html'),'utf8'), /<img src="\/uploads\/blog\/collage.png"/);
     assert.doesNotMatch(await readFile(join(output,'sitemap.xml'),'utf8'),/future/);
     assert.doesNotMatch(await readFile(join(output,'blog/index.html'),'utf8'),/Future note/);
