@@ -10,8 +10,9 @@ const escape = value => String(value).replace(/[&<>"']/g, character => ({'&':'&a
 
 /** Validate author content before it can enter HTML, URLs or search metadata. */
 export function validatePost(value, filename) {
-  const slug = basename(filename, '.json');
-  if (filename !== `${slug}.json` || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new TypeError(`Invalid post filename: ${filename}; use lowercase words separated by hyphens`);
+  const sourceSlug = basename(filename, '.json');
+  const slug = sourceSlug.replace(/['’]/g, '');
+  if (filename !== `${sourceSlug}.json` || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new TypeError(`Invalid post filename: ${filename}; use lowercase words separated by hyphens`);
   for (const field of ['title', 'date', 'topic', 'description', 'body']) {
     if (typeof value[field] !== 'string' || !value[field].trim()) throw new TypeError(`${filename}: ${field} must be nonempty text`);
   }
