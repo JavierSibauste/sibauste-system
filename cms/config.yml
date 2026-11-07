@@ -8,7 +8,7 @@ display_url: https://sibaustesystem.com/blog/
 logo_url: https://sibaustesystem.com/assets/sibauste-systems-logo-transparent-v2.png
 publish_mode: editorial_workflow
 media_folder: dist/uploads/blog
-public_folder: /uploads/blog
+public_folder: uploads/blog
 
 collections:
   - name: posts

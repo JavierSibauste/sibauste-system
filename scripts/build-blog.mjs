@@ -16,6 +16,7 @@ export function validatePost(value, filename) {
     if (typeof value[field] !== 'string' || !value[field].trim()) throw new TypeError(`${filename}: ${field} must be nonempty text`);
   }
   if (!Number.isFinite(Date.parse(value.date))) throw new TypeError(`${filename}: invalid publication date ${value.date}`);
+  if (value.cover?.startsWith('uploads/blog/')) value = {...value, cover: '/' + value.cover};
   if (value.cover && !/^\/uploads\/blog\/[a-z0-9_./% -]+$/i.test(value.cover)) throw new TypeError(`${filename}: cover must be an image under /uploads/blog/`);
   if (value.cover && (!value.cover_alt || !value.cover_alt.trim())) throw new TypeError(`${filename}: add a cover image description`);
   return {...value, slug};

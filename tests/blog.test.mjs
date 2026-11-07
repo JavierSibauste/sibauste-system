@@ -11,6 +11,7 @@ test('unsafe Markdown cannot execute scripts or inject event handlers',()=>{
   assert.doesNotMatch(rendered, /<script|onerror|javascript:/i);
 });
 test('post paths and image descriptions are validated',()=>{
+  assert.equal(validatePost({...post,cover:'uploads/blog/photo.png',cover_alt:'Project collage'},'note.json').cover,'/uploads/blog/photo.png');
   assert.throws(()=>validatePost(post,'../invalid.json'),/Invalid post filename/);
   assert.throws(()=>validatePost({...post,cover:'/uploads/blog/photo.png'},'note.json'),/cover image description/);
   assert.throws(()=>validatePost({...post,date:'not-a-date'},'note.json'),/invalid publication date/);
