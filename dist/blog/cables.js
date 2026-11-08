@@ -2,7 +2,8 @@
 function mountBlogCables(){
   const ns='http://www.w3.org/2000/svg';
   const svg=document.createElementNS(ns,'svg');
-  svg.classList.add('blog-cables');svg.setAttribute('aria-hidden','true');document.body.prepend(svg);
+  // Decap mounts its preview in the body's first child, so decorations must follow that container.
+  svg.classList.add('blog-cables');svg.setAttribute('aria-hidden','true');document.body.append(svg);
   const paths=[0,1].map(()=>{const path=document.createElementNS(ns,'path');path.classList.add('blog-cable');svg.append(path);return path;});
   const dots=[0,1,2,3].map((_,index)=>{const dot=document.createElementNS(ns,'circle');dot.classList.add('blog-dot');dot.setAttribute('r','4');svg.append(dot);return {dot,path:paths[index%2],phase:index*.23};});
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
