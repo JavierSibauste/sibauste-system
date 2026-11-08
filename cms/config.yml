@@ -33,6 +33,8 @@ collections:
         name: description
         widget: text
         hint: A short, clear summary for readers and search engines
-      - {label: Cover image, name: cover, widget: image, required: false}
+      - {label: Cover image, name: cover, widget: image, required: false, hint: "Shown on the blog listing and in social sharing previews only"}
       - {label: Cover image description, name: cover_alt, widget: string, required: false}
+      - {label: Article image, name: article_image, widget: image, required: false, hint: "A separate picture above the article title. Leave empty for no picture inside the article"}
+      - {label: Article image description, name: article_image_alt, widget: string, required: false}
       - {label: Article, name: body, widget: markdown}

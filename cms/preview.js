@@ -8,7 +8,7 @@ CMS.registerPreviewTemplate('posts', function ArticlePreview({entry, widgetFor, 
   const formattedDate = Number.isFinite(timestamp)
     ? new Date(timestamp).toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric', timeZone:'UTC'})
     : '';
-  const cover = data.get('cover');
+  const articleImage = data.get('article_image');
   function preparePreview(node) {
     if (!node) return;
     const doc = node.ownerDocument;
@@ -21,7 +21,7 @@ CMS.registerPreviewTemplate('posts', function ArticlePreview({entry, widgetFor, 
     }
   }
   return h('main', {}, h('article', {className:'article', ref:preparePreview},
-    cover ? h('img', {className:'article-cover', src:String(getAsset(cover)), alt:data.get('cover_alt') || ''}) : null,
+    articleImage ? h('img', {className:'article-cover', src:String(getAsset(articleImage)), alt:data.get('article_image_alt') || ''}) : null,
     h('p', {className:'article-topic'}, data.get('topic')),
     h('h1', {}, data.get('title')),
     h('div', {className:'meta article-meta'}, ['Javier Sibauste', formattedDate].filter(Boolean).join(' · ')),

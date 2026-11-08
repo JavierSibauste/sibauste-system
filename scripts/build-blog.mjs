@@ -17,9 +17,12 @@ export function validatePost(value, filename) {
     if (typeof value[field] !== 'string' || !value[field].trim()) throw new TypeError(`${filename}: ${field} must be nonempty text`);
   }
   if (!Number.isFinite(Date.parse(value.date))) throw new TypeError(`${filename}: invalid publication date ${value.date}`);
-  if (value.cover?.startsWith('uploads/blog/')) value = {...value, cover: '/' + value.cover};
-  if (value.cover && !/^\/uploads\/blog\/[a-z0-9_./% -]+$/i.test(value.cover)) throw new TypeError(`${filename}: cover must be an image under /uploads/blog/`);
-  if (value.cover && (!value.cover_alt || !value.cover_alt.trim())) throw new TypeError(`${filename}: add a cover image description`);
+  for (const [field, label] of [['cover', 'cover'], ['article_image', 'article']]) {
+    if (value[field] != null && typeof value[field] !== 'string') throw new TypeError(`${filename}: ${label} image must be a path`);
+    if (value[field]?.startsWith('uploads/blog/')) value = {...value, [field]: '/' + value[field]};
+    if (value[field] && !/^\/uploads\/blog\/[a-z0-9_./% -]+$/i.test(value[field])) throw new TypeError(`${filename}: ${field} must be an image under /uploads/blog/`);
+    if (value[field] && (typeof value[field + '_alt'] !== 'string' || !value[field + '_alt'].trim())) throw new TypeError(`${filename}: add a ${label} image description`);
+  }
   return {...value, slug};
 }
 
@@ -54,7 +57,7 @@ export async function buildBlog({contentDirectory = resolve(root,'content/posts'
   for (const post of posts) {
     const target = resolve(outputDirectory,'blog/articles',post.slug);
     await mkdir(target,{recursive:true});
-    await writeFile(resolve(target,'index.html'),page({title:post.title,description:post.description,path:postPath(post),article:post,content:`<article class="article"><a class="back" href="/blog/">Back to the blog</a>${post.cover ? `<img class="article-cover" src="${escape(post.cover)}" alt="${escape(post.cover_alt)}" width="460" fetchpriority="high">` : ''}<p class="article-topic">${escape(post.topic)}</p><h1>${escape(post.title)}</h1><div class="meta article-meta">Javier Sibauste · ${new Date(post.date).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}</div><div class="prose">${articleHtml(post.body)}</div></article>`}));
+    await writeFile(resolve(target,'index.html'),page({title:post.title,description:post.description,path:postPath(post),article:post,content:`<article class="article"><a class="back" href="/blog/">Back to the blog</a>${post.article_image ? `<img class="article-cover" src="${escape(post.article_image)}" alt="${escape(post.article_image_alt)}" width="460" fetchpriority="high">` : ''}<p class="article-topic">${escape(post.topic)}</p><h1>${escape(post.title)}</h1><div class="meta article-meta">Javier Sibauste · ${new Date(post.date).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric',timeZone:'UTC'})}</div><div class="prose">${articleHtml(post.body)}</div></article>`}));
   }
   await writeFile(resolve(outputDirectory,'blog/feed.xml'),`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Javier Sibauste’s blog</title><link>${domain}/blog/</link><description>Personal notes on IT and technology</description>${posts.map(post=>`<item><title>${escape(post.title)}</title><link>${domain}${postPath(post)}</link><guid>${domain}${postPath(post)}</guid><pubDate>${new Date(post.date).toUTCString()}</pubDate><description>${escape(post.description)}</description></item>`).join('')}</channel></rss>`);
   await writeFile(resolve(outputDirectory,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${['/','/blog/',...posts.map(postPath)].map(path=>`<url><loc>${domain}${path}</loc></url>`).join('')}</urlset>`);
