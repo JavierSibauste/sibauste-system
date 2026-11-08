@@ -26,7 +26,8 @@ test('published posts generate crawlable pages and future posts stay out of the 
     assert.deepEqual(await buildBlog({contentDirectory:source,outputDirectory:output,now:new Date('2026-11-01')}),{published:1});
     const html=await readFile(join(output,'blog/articles/note/index.html'),'utf8');
     assert.match(html,/<h2>Finding<\/h2>/);assert.match(html,/<strong>content<\/strong>/);assert.match(html,/BlogPosting/);
-    assert.doesNotMatch(html, /class="cover"/);
+    assert.match(html, /class="article-cover"/);
+    assert.match(html, /src="\/blog\/cables.js"/);
     assert.doesNotMatch(html.split('<body>')[1], /A useful summary/);
     assert.match(html, /<meta name="description" content="A useful summary">/);
     assert.match(await readFile(join(output,'blog/index.html'),'utf8'), /<p>A useful summary<\/p>/);

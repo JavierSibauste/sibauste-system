@@ -1,0 +1,20 @@
+/* Shared journal styling for the listing, articles and CMS preview. */
+body{position:relative;isolation:isolate;line-height:1.75}
+header,main,footer{position:relative;z-index:1}
+.article{max-width:760px;margin-top:38px}
+.article-cover{display:block;width:min(100%,460px);height:auto;max-height:260px;object-fit:contain;object-position:left center;margin:0 0 30px;background:var(--surface)}
+.article-topic{color:var(--accent);font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px}
+.article h1{font-size:clamp(35px,4.5vw,56px);line-height:1.15;letter-spacing:-.02em;max-width:24ch}
+.article-meta{margin:22px 0 0;padding-bottom:28px;border-bottom:1px solid #46d57a55}
+.prose{margin-top:32px}.prose h2,.prose h3{line-height:1.25}.prose li{margin:6px 0}
+.back{font-size:14px;text-decoration:none;color:var(--muted);margin-bottom:30px}
+.post-row{padding:30px 0;background:transparent;border-top:1px solid #46d57a30;gap:28px}
+.post-row:has(img){grid-template-columns:minmax(220px,320px) 1fr;align-items:start}
+.post-row img{display:block;aspect-ratio:16/9;object-fit:contain;background:var(--surface)}
+.post-row p{font-size:15px;line-height:1.65;max-width:66ch}.post-row a:last-child{font-size:15px}
+.blog-cables{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;overflow:hidden}
+.blog-cable{fill:none;stroke:var(--accent);stroke-opacity:.28;stroke-width:1;vector-effect:non-scaling-stroke}
+.blog-dot{fill:var(--accent);filter:drop-shadow(0 0 6px #46d57aa0)}
+.cms-preview .article{margin-top:30px}.cms-preview main{width:calc(100% - 56px)}
+@media(max-width:700px){header,main,footer{width:calc(100% - 40px)}header{gap:16px;padding-block:22px}header img{width:130px}.article{margin-top:24px}.article-cover{width:min(100%,420px);max-height:240px;margin-bottom:26px}.article h1{font-size:36px}.article-meta{line-height:1.6}.prose{font-size:17px;line-height:1.75}.prose h2{font-size:28px}.prose h3{font-size:24px}.post-row,.post-row:has(img){grid-template-columns:1fr;padding:24px 0}.post-row img{max-width:440px;aspect-ratio:16/9}.blog-cable{stroke-opacity:.19}.blog-dot{r:3}.cms-preview main{width:calc(100% - 40px)}}
+/* Created by Sibauste System 💻 */
