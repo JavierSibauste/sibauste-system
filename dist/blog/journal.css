@@ -6,7 +6,7 @@ header,main,footer{position:relative;z-index:1}
 .article-topic{color:var(--accent);font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px}
 .article h1{font-size:clamp(35px,4.5vw,56px);line-height:1.15;letter-spacing:-.02em;max-width:24ch}
 .article-meta{margin:22px 0 0;padding-bottom:28px;border-bottom:1px solid #46d57a55}
-.prose img{background:transparent}.prose{margin-top:32px}.prose h2,.prose h3{line-height:1.25}.prose li{margin:6px 0}
+.prose img{display:block;width:auto;max-width:min(100%,320px);height:auto;max-height:360px;object-fit:contain;margin-block:20px;background:transparent}.prose{margin-top:32px}.prose h2,.prose h3{line-height:1.25}.prose li{margin:6px 0}
 .back{font-size:14px;text-decoration:none;color:var(--muted);margin-bottom:30px}
 .post-row{padding:30px 0;background:transparent;border-top:1px solid #46d57a30;gap:28px}
 .post-row:has(img){grid-template-columns:minmax(220px,320px) 1fr;align-items:start}
