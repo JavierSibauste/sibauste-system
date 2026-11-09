@@ -128,6 +128,7 @@
       }
     }
   </style>
+  <style>#contact [hidden]{display:none!important}#contact option{background:#0a1d14;color:#fff}</style>
 </head>
 <body class="font-sans text-zinc-200 antialiased selection:bg-emerald/30 selection:text-white">
   <div class="fixed inset-0 -z-20 grid-lines" aria-hidden="true"></div>
@@ -288,20 +289,31 @@
         <div class="reveal relative overflow-hidden border-b border-white/10 p-8 sm:p-12 lg:border-b-0 lg:border-r">
           <div class="absolute -right-24 -top-24 size-72 rounded-full bg-emerald/10 blur-3xl"></div>
           <p class="eyebrow relative text-xs font-bold uppercase text-emerald">Start with Javier Sibauste</p>
-          <h2 class="relative mt-5 font-display text-4xl text-white sm:text-5xl">Find the bottleneck before buying another app.</h2>
-          <p class="relative mt-6 text-lg leading-8 text-zinc-400">Tell me what is slow, unreliable, disconnected, or difficult to measure. I’ll help identify the technical path forward.</p>
-          <div class="relative mt-10 space-y-4 text-sm text-zinc-300"><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>Focused technical inspection</p><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>Plain-language priorities</p><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>AI-assisted analysis, human-reviewed</p></div>
+          <h2 class="relative mt-5 font-display text-4xl text-white sm:text-5xl">Let’s talk about your website or your story.</h2>
+          <p class="relative mt-6 text-lg leading-8 text-zinc-400">Have a website question, a company story worth sharing, or an idea for a blog collaboration? Tell me a little about it, and I’ll reply by email.</p>
+          <div class="relative mt-10 space-y-4 text-sm text-zinc-300"><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>Website questions and troubleshooting</p><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>Company stories and blog ideas</p><p class="flex items-center gap-3"><i data-lucide="check-circle-2" class="size-5 text-emerald"></i>A personal reply by email</p></div>
         </div>
         <form id="contact-form" action="https://formspree.io/f/xgavkolp" method="POST" class="reveal p-8 sm:p-12">
           <div class="grid gap-5 sm:grid-cols-2">
             <label class="block"><span class="mb-2 block text-sm font-medium text-zinc-300">Name</span><input required name="name" type="text" autocomplete="name" class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="Your name"></label>
             <label class="block"><span class="mb-2 block text-sm font-medium text-zinc-300">Email</span><input required name="email" type="email" autocomplete="email" class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="you@company.com"></label>
           </div>
-          <label class="mt-5 block"><span class="mb-2 block text-sm font-medium text-zinc-300">Current store URL</span><input name="store_url" type="url" inputmode="url" class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="https://yourstore.com"></label>
-          <label class="mt-5 block"><span class="mb-2 block text-sm font-medium text-zinc-300">What technical bottleneck can I solve for you?</span><textarea required name="message" rows="5" class="w-full resize-y rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="Store speed, tracking gaps, SEO analysis, DNS, integrations, catalog synchronization..."></textarea></label>
-          <input type="hidden" name="_subject" value="New Sibauste Systems inspection request">
-          <button type="submit" class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald px-6 py-4 font-bold text-ink transition hover:bg-green-300">Request a Store Inspection <i data-lucide="send" class="size-4"></i></button>
-          <p id="form-note" class="mt-4 text-center text-sm text-zinc-500" aria-live="polite">Your inspection request will be sent securely to Javier Sibauste.</p>
+          <label class="mt-5 block"><span class="mb-2 block text-sm font-medium text-zinc-300">What would you like to discuss?</span><select required id="contact-reason" name="reason" class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" style="color-scheme:dark">
+            <option value="" disabled selected>Select a topic</option>
+            <option value="Website or online store help">Website or online store help</option>
+            <option value="Share my company’s story">Share my company’s story</option>
+            <option value="Blog collaboration or article idea">Blog collaboration or article idea</option>
+            <option value="Something else">Something else</option>
+          </select></label>
+          <label class="mt-5 block"><span class="mb-2 block text-sm font-medium text-zinc-300">Website or store URL <span class="font-normal text-zinc-500">(optional)</span></span><input name="store_url" type="url" inputmode="url" class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="https://yourwebsite.com"></label>
+          <label id="platform-field" class="mt-5 block" hidden><span class="mb-2 block text-sm font-medium text-zinc-300">Which platform do you use?</span><select id="contact-platform" name="platform" disabled class="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" style="color-scheme:dark">
+            <option value="" disabled selected>Select your platform</option>
+            <option>Shopify</option><option>Wix</option><option>WordPress or WooCommerce</option><option>Another platform</option><option>I’m not sure</option>
+          </select></label>
+          <label class="mt-5 block"><span class="mb-2 block text-sm font-medium text-zinc-300">Tell me a little more</span><textarea required id="contact-message" name="message" rows="5" class="w-full resize-y rounded-xl border border-white/10 bg-black/20 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-emerald/60 focus:ring-2 focus:ring-emerald/10" placeholder="Tell me what you have in mind and how I can help."></textarea></label>
+          <input id="contact-subject" type="hidden" name="_subject" value="New Sibauste Systems message">
+          <button type="submit" class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald px-6 py-4 font-bold text-ink transition hover:bg-green-300">Send your message <i data-lucide="send" class="size-4"></i></button>
+          <p id="form-note" class="mt-4 text-center text-sm text-zinc-500">Company stories and article ideas are reviewed before publication.</p>
         </form>
       </div>
     </section>
@@ -318,6 +330,29 @@
     document.addEventListener('DOMContentLoaded', () => {
       if (window.lucide) lucide.createIcons();
       document.getElementById('year').textContent = new Date().getFullYear();
+
+      const contactForm = document.getElementById('contact-form');
+      const reason = document.getElementById('contact-reason');
+      const platformField = document.getElementById('platform-field');
+      const platform = document.getElementById('contact-platform');
+      const message = document.getElementById('contact-message');
+      const subject = document.getElementById('contact-subject');
+      function updateContactFields() {
+        const websiteHelp = reason.value === 'Website or online store help';
+        platformField.hidden = !websiteHelp;
+        platform.disabled = !websiteHelp;
+        platform.required = websiteHelp;
+        if (!websiteHelp) platform.value = '';
+        message.placeholder = websiteHelp
+          ? 'Tell me what isn’t working, where you’re getting stuck, and what you’d like to improve.'
+          : reason.value === 'Share my company’s story'
+            ? 'Introduce your company and the story you’d like to share. Include your website or social profile, if available.'
+            : 'Tell me what you have in mind and how I can help.';
+        subject.value = reason.value ? 'Sibauste Systems: ' + reason.value : 'New Sibauste Systems message';
+      }
+      reason.addEventListener('change', updateContactFields);
+      contactForm.addEventListener('reset', () => requestAnimationFrame(updateContactFields));
+      updateContactFields();
 
 
       const observer = new IntersectionObserver(entries => {
