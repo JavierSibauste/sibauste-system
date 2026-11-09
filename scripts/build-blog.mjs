@@ -31,6 +31,13 @@ export function articleHtml(markdown) {
   return sanitizeHtml(marked.parse(markdown), {
     allowedTags: [...sanitizeHtml.defaults.allowedTags, 'img'],
     allowedAttributes: {...sanitizeHtml.defaults.allowedAttributes, img: ['src', 'alt', 'title', 'width', 'height', 'loading']},
+    // Decap uses relative media paths for draft previews; published articles need root-relative URLs.
+    transformTags: {
+      img: (tagName, attributes) => ({tagName, attribs: {
+        ...attributes,
+        ...(attributes.src?.startsWith('uploads/blog/') ? {src: '/' + attributes.src} : {})
+      }})
+    },
     allowedSchemes: ['https', 'http', 'mailto'],
     allowProtocolRelative: false
   });

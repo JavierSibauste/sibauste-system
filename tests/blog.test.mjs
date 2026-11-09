@@ -10,6 +10,15 @@ test('unsafe Markdown cannot execute scripts or inject event handlers',()=>{
   const rendered=articleHtml('<script>alert(1)</script>\n\n<img src="x" onerror="alert(1)">\n\n[click](javascript:alert(1))');
   assert.doesNotMatch(rendered, /<script|onerror|javascript:/i);
 });
+test('article images use site-root media paths without changing external URLs or captions',()=>{
+  const html=articleHtml('![Product](uploads/blog/bottle.png "Product title")\n\n![Existing](/uploads/blog/existing.png)\n\n![External](https://example.com/image.png)');
+  assert.match(html, /src="\/uploads\/blog\/bottle.png"/);
+  assert.match(html, /alt="Product" title="Product title"/);
+  assert.match(html, /src="\/uploads\/blog\/existing.png"/);
+  assert.match(html, /src="https:\/\/example.com\/image.png"/);
+  assert.doesNotMatch(html, /src="uploads\//);
+});
+
 test('post paths and image descriptions are validated',()=>{
   assert.equal(validatePost(post,'what-i’ve-learned.json').slug,'what-ive-learned');
   assert.equal(validatePost({...post,cover:'uploads/blog/photo.png',cover_alt:'Project collage'},'note.json').cover,'/uploads/blog/photo.png');

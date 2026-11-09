@@ -1,0 +1,53 @@
+name: Recover temporary Pages failures
+
+on:
+  workflow_run:
+    workflows: [Deploy GitHub Pages]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: pages-recovery-${{ github.event.workflow_run.id }}
+  cancel-in-progress: false
+
+jobs:
+  retry:
+    if: >-
+      github.event.workflow_run.conclusion == 'failure' &&
+      github.event.workflow_run.run_attempt < 3 &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      (github.event.workflow_run.event == 'push' || github.event.workflow_run.event == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Retry current deployment after a temporary failure
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            const {owner, repo} = context.repo;
+            const branch = await github.rest.repos.getBranch({owner, repo, branch: 'main'});
+            if (branch.data.commit.sha !== run.head_sha) {
+              core.info('A newer commit exists; skip retrying the older deployment.');
+              return;
+            }
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRunAttempt, {
+              owner, repo, run_id: run.id, attempt_number: run.run_attempt, per_page: 100
+            });
+            const validationFailed = jobs.some(job => (job.steps || []).some(step =>
+              step.name === 'Validate and build blog' && step.conclusion === 'failure'));
+            if (validationFailed) {
+              core.warning('Content validation failed. Fix the reported error rather than retrying unchanged content.');
+              return;
+            }
+            await new Promise(resolve => setTimeout(resolve, 15000));
+            const latest = await github.rest.repos.getBranch({owner, repo, branch: 'main'});
+            if (latest.data.commit.sha !== run.head_sha) return;
+            await github.rest.actions.reRunWorkflow({owner, repo, run_id: run.id});
+            await core.summary.addHeading('Automatic Pages recovery')
+              .addRaw(`Requested attempt ${run.run_attempt + 1} of 3 for the current website commit.`).write();
+
+# Created by Sibauste System 💻
