@@ -30,11 +30,12 @@ export function validatePost(value, filename) {
 export function articleHtml(markdown) {
   return sanitizeHtml(marked.parse(markdown), {
     allowedTags: [...sanitizeHtml.defaults.allowedTags, 'img'],
-    allowedAttributes: {...sanitizeHtml.defaults.allowedAttributes, img: ['src', 'alt', 'title', 'width', 'height', 'loading']},
+    allowedAttributes: {...sanitizeHtml.defaults.allowedAttributes, img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'data-image-size']},
     // Decap uses relative media paths for draft previews; published articles need root-relative URLs.
     transformTags: {
       img: (tagName, attributes) => ({tagName, attribs: {
         ...attributes,
+        'data-image-size': ['small', 'medium', 'full'].includes(attributes['data-image-size']) ? attributes['data-image-size'] : 'small',
         ...(attributes.src?.startsWith('uploads/blog/') ? {src: '/' + attributes.src} : {})
       }})
     },

@@ -52,3 +52,11 @@ test('published posts generate crawlable pages and future posts stay out of the 
     assert.doesNotMatch(await readFile(join(output,'blog/index.html'),'utf8'),/Future note/);
   } finally {await rm(temporary,{recursive:true,force:true});}
 });
+
+test('inline image sizes preserve defaults and only allow supported choices',()=>{
+  const html=articleHtml('<img src="uploads/blog/diagram.png" data-image-size="full" onerror="bad()">\n\n<img src="/uploads/blog/photo.png" data-image-size="medium">\n\n![Legacy](/uploads/blog/product.png)\n\n<img src="/uploads/blog/x.png" data-image-size="invalid">');
+  assert.match(html,/src="\/uploads\/blog\/diagram.png" data-image-size="full"/);
+  assert.match(html,/data-image-size="medium"/);
+  assert.equal((html.match(/data-image-size="small"/g)||[]).length,2);
+  assert.doesNotMatch(html,/onerror|invalid/);
+});

@@ -17,4 +17,6 @@ header,main,footer{position:relative;z-index:1}
 .blog-dot{fill:var(--accent);filter:drop-shadow(0 0 6px #46d57aa0)}
 .cms-preview .article{margin-top:30px}.cms-preview main{width:calc(100% - 56px)}
 @media(max-width:700px){header,main,footer{width:calc(100% - 40px)}header{gap:16px;padding-block:22px}header img{width:130px}.article{margin-top:24px}.article-cover{max-width:min(100%,420px);max-height:240px;margin-bottom:26px}.article h1{font-size:36px}.article-meta{line-height:1.6}.prose{font-size:17px;line-height:1.75}.prose h2{font-size:28px}.prose h3{font-size:24px}.post-row,.post-row:has(img){grid-template-columns:1fr;padding:24px 0}.post-row img{max-width:min(100%,440px);aspect-ratio:auto}.blog-cable{stroke-opacity:.19}.blog-dot{r:3}.cms-preview main{width:calc(100% - 40px)}}
+.prose img[data-image-size="medium"]{width:auto;max-width:min(100%,460px);max-height:520px}
+.prose img[data-image-size="full"]{width:100%;max-width:100%;max-height:none;height:auto}
 /* Created by Sibauste System 💻 */

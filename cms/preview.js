@@ -28,4 +28,29 @@ CMS.registerPreviewTemplate('posts', function ArticlePreview({entry, widgetFor, 
     h('div', {className:'prose'}, widgetFor('body'))
   ));
 });
+
+// Keep ordinary Markdown images editable while storing explicit sizes as safe HTML.
+CMS.registerEditorComponent({
+  id: 'image', label: 'Image',
+  fields: [
+    {name:'image', label:'Image', widget:'image'},
+    {name:'alt', label:'Image description', widget:'string', required:false},
+    {name:'title', label:'Title', widget:'string', required:false},
+    {name:'size', label:'Display size', widget:'select', default:'small', options:[
+      {label:'Small (product pictures)',value:'small'},
+      {label:'Medium (regular photos)',value:'medium'},
+      {label:'Full article width (diagrams and guides)',value:'full'}
+    ]}
+  ],
+  pattern: /^(?:!\[(.*?)\]\((\S+?)(?:\s+"(.*?)")?\)|<img\s+src="([^"]*)"\s+alt="([^"]*)"\s+title="([^"]*)"\s+data-image-size="(small|medium|full)"\s*\/?>)$/,
+  fromBlock: match => ({image:match[4] || match[2], alt:match[5] ?? match[1] ?? '', title:match[6] ?? match[3] ?? '', size:match[7] || 'small'}),
+  toBlock: data => imageMarkup(data),
+  toPreview: (data, getAsset) => imageMarkup({...data,image:String(getAsset(data.image))})
+});
+function imageMarkup(data) {
+  const escape = value => String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const size = ['small','medium','full'].includes(data.size) ? data.size : 'small';
+  return '<img src="'+escape(data.image)+'" alt="'+escape(data.alt)+'" title="'+escape(data.title)+'" data-image-size="'+size+'">';
+}
+
 // Created by Sibauste System 💻
